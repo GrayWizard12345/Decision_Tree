@@ -2,6 +2,9 @@ import argparse
 
 
 def parse_arguments():
+    """
+    :return: a namespace object containing command line arguments passed to the program
+    """
     parser = argparse.ArgumentParser(description='Decision tree classification model.')
     parser.add_argument('train', metavar='train_file', type=str, nargs='+',
                         help='Path to a training dataset file')
@@ -63,6 +66,10 @@ def class_counts(dataset):
 
 
 def gini_index(dataset):
+    """
+    :param dataset: a 2d list representing a list of data objects
+    :return: gini index for this dataset
+    """
     classes = class_counts(dataset)
     s = 0
     for label in classes:
@@ -73,6 +80,13 @@ def gini_index(dataset):
 
 
 def impurity_reduction(current_impurity: float, splits: list):
+    """
+    Calculates the impurity reduction on split with respect to parent node
+
+    :param current_impurity: impurity on the parent node
+    :param splits: a tuple containing data items that satisfy the condition of split and those that dont
+    :return: impurity reduction on split
+    """
     tot_len = 0
     for split in splits:
         tot_len += len(split)
@@ -88,19 +102,32 @@ def impurity_reduction(current_impurity: float, splits: list):
 class BranchingCondition:
 
     def __init__(self, attr_name, attr_index, value):
+        """
+        :param attr_name: name of the attribute that is being used for a split
+        :param attr_index: index of the attribute in the list of attributes
+        :param value:
+        """
         self.attr_name = attr_name
         self.attr_index = attr_index
         self.value = value
 
     def test(self, row):
+        """
+        :param row: data item to be tested for branching condition
+        :return: match on branching condition value and attribute value of the data object
+        """
         return row[self.attr_index] == self.value
 
     def __str__(self):
         return self.attr_name + " - " + self.value
 
 
-
 def split_on_condition(dataset, condition: BranchingCondition):
+    """
+    :param dataset: a 2d list representing a list of data objects
+    :param condition: a branching condition
+    :return: split of the dataset into two sets: data that passed the condition test and those that didnt
+    """
     satisfied_rows = []
     unsatisfied_rows = []
     for row in dataset:
@@ -113,6 +140,11 @@ def split_on_condition(dataset, condition: BranchingCondition):
 
 
 def best_split(dataset, attr_names):
+    """
+    :param dataset: a 2d list representing a list of data objects
+    :param attr_names: a list containing names of attributes
+    :return: a tuple with the best splitting condition and corresponding largest reduction in impurity
+    """
     highest_impurity_reduction = 0
     best_branching_condition = None
     current_impurity = gini_index(dataset)

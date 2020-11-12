@@ -4,17 +4,22 @@ from utils import class_counts
 class Node:
 
     def __init__(self, condition, left, right):
+        """
+        :param condition: an attribute value upon which the splitting on the node occurs
+        :param left: data tuples that satisfy the condition go to the left node of the tree
+        :param right: other tupels go to the right
+        """
         self.condition = condition
         self.left = left
         self.right = right
-
-    def __str__(self):
-        return str(self.condition)
 
 
 class Leaf:
 
     def __init__(self, dataset):
+        """
+        A leaf node that makes determine the label
+        """
         possible_classes = class_counts(dataset)
         mx = 0
         l = None
@@ -34,4 +39,7 @@ class Leaf:
 
 
     def __str__(self):
-        return self.prediction_label + ":" + str(self.prediction_confidence)
+        """
+        String representation of the class
+        """
+        return self.prediction_label + " with confidence " + str(self.prediction_confidence)
