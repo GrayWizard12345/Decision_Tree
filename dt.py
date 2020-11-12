@@ -33,7 +33,7 @@ if __name__ == '__main__':
     test_f = args.test[0]
     result_f = args.result[0]
 
-    dataset, attr_names, _ = read_data(train_f)
+    dataset, attr_names, atrs = read_data(train_f)
 
     print(attr_names)
 
@@ -54,12 +54,14 @@ if __name__ == '__main__':
 
     root = build_tree(dataset, attr_names)
 
-    test, _, atrs = read_data(test_f)
+    test, _, _ = read_data(test_f)
 
     for touple in test:
         label = classify(touple, root).prediction_label
         touple.append(label)
 
+    print(atrs)
+    print(_)
     test.insert(0, atrs)
 
     write_data(result_f, test)
