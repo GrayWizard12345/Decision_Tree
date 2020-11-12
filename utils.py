@@ -88,13 +88,13 @@ def impurity_reduction(current_impurity: float, splits: list):
     :return: impurity reduction on split
     """
     tot_len = 0
-    for split in splits:
-        tot_len += len(split)
+    for branch in splits:
+        tot_len += len(branch)
 
     s = 0
-    for split in splits:
-        weight = len(split) / tot_len
-        s += weight * gini_index(split)
+    for branch in splits:
+        weight = len(branch) / tot_len
+        s += weight * gini_index(branch)
 
     return current_impurity - s
 

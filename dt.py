@@ -59,9 +59,6 @@ if __name__ == '__main__':
     # Read data from the training file
     dataset, attr_names, atrs = read_data(train_f)
 
-    # A dictionary containing class labels as keys and label counts in the dataset as values.
-    classes = class_counts(dataset)
-
     # First call to build tree to get the root of the tree
     root = build_tree(dataset, attr_names)
 
