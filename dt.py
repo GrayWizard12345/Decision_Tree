@@ -29,9 +29,9 @@ def classify(touple, node):
 if __name__ == '__main__':
     args = parse_arguments()
     print(args)
-    train_f = args.train[0]
-    test_f = args.test[0]
-    result_f = args.result[0]
+    train_f = args.train[0].strip()
+    test_f = args.test[0].strip()
+    result_f = args.result[0].strip()
 
     dataset, attr_names, atrs = read_data(train_f)
 
@@ -43,14 +43,14 @@ if __name__ == '__main__':
 
     classes = class_counts(dataset)
 
-    print("\nUnique Attributes:")
-    print(unique_attrs)
-
-    print("\nClasses:")
-    print(classes, len(classes))
-
-    print("\nGini(D):")
-    print(gini_index(dataset))
+    # print("\nUnique Attributes:")
+    # print(unique_attrs)
+    #
+    # print("\nClasses:")
+    # print(classes, len(classes))
+    #
+    # print("\nGini(D):")
+    # print(gini_index(dataset))
 
     root = build_tree(dataset, attr_names)
 
