@@ -126,7 +126,7 @@ def best_split(dataset, attr_names):
             condition = BranchingCondition(attr_names[i], i, val)
 
             satisfied_rows, unsatisfied_rows = split_on_condition(dataset, condition)
-            if len(satisfied_rows) == 0 or len(unique_attribute_values) == 0:
+            if len(satisfied_rows) == 0 or len(unsatisfied_rows) == 0:
                 continue
 
             imp_red = impurity_reduction(current_impurity, [satisfied_rows, unsatisfied_rows])
